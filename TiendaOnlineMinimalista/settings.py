@@ -149,3 +149,5 @@ LOGIN_REDIRECT_URL = 'home'  # A dónde va tras hacer login con éxito
 LOGOUT_REDIRECT_URL = (  # A dónde va tras cerrar sesión
     'home'
 )
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
