@@ -1,0 +1,15 @@
+{% extends "_core/_layout.html" %}
+
+{% block page_content %}
+<div class="container my-5" style="max-width: 500px;">
+    <h2 class="mb-4 text-center">Registro de Usuario</h2>
+    
+    <form method="post" class="card p-4 shadow-sm border-0">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary w-100 mt-3">Registrarse</button>
+    </form>
+    
+    <p class="text-center mt-3">¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión aquí</a></p>
+</div>
+{% endblock %}

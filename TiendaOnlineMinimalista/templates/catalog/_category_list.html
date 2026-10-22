@@ -1,0 +1,20 @@
+{% extends "_core/_layout.html" %} 
+
+{% block head_title %} Tienda online minimalista {% endblock %} 
+
+{% block page_content %}
+<div class="container">
+
+  <h1>Todos las categorías</h1>
+  <div class="row">
+    {% for category in categories %}
+    <article class="col-12 col-sm-6 col-md-4 text-center">
+      <a class="text-decoration-none text-reset"role="button" role="button" href="{% url 'category_products' category.slug %}">
+        <h2> {{ category.name }} </h2>
+        <img src="{{ category.image.url }}" alt="{{ category.name }}" class="rounded-circle mx-auto mb-2 category-img img-fluid img-responsive">
+      </a>
+    </article>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

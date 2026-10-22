@@ -1,0 +1,41 @@
+{% extends "_core/_layout.html" %}
+
+{% block page_content %}
+<div class="container my-5">
+    <h2 class="mb-4 text-center">Mis Pedidos Realizados</h2>
+
+    {% if orders %}
+        <div class="table-responsive">
+            <table class="table align-middle table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Pedido ID</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td class="fw-bold">#{{ order.id }}</td>
+                            <td>{{ order.created_at|date:"d/m/Y H:i" }}</td>
+                            <td>
+                                <span class="badge bg-secondary">{{ order.get_status_display }}</span>
+                            </td>
+                            <td class="text-success fw-bold">{{ order.get_total_cost }} €</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center">
+            Aún no has realizado ningún pedido. ¡Anércate a la tienda a echar un vistazo!
+        </div>
+        <div class="text-center">
+            <a href="{% url 'home' %}" class="btn btn-primary">Ir a la tienda</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

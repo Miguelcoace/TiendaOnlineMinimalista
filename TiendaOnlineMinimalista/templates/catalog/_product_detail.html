@@ -1,0 +1,53 @@
+{% extends "_core/_layout.html" %} 
+
+{% block head_title %} TiendaOnlineMinimalista{% endblock %} 
+
+{% block page_content %}
+<div class="container my-5">
+    <div class="row">
+        <!-- Columna de la imagen del producto -->
+        <div class="col-md-6 mb-4">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded shadow-sm w-100 object-fit-cover" style="max-height: 400px;">
+            {% else %}
+                <div class="bg-light text-center p-5 rounded text-muted">Sin imagen disponible</div>
+            {% endif %}
+        </div>
+
+        <!-- Columna de la información del producto -->
+        <div class="col-md-6">
+            <!-- Categoría -->
+            <span class="badge bg-secondary mb-2">{{ product.category }}</span>
+            
+            <!-- Nombre del producto -->
+            <h1 class="fw-bold mb-3">{{ product.name }}</h1>
+            
+            <!-- Precio -->
+            <h3 class="text-success fw-bold mb-3">{{ product.price }} €</h3>
+            
+            <!-- Descripción -->
+            <div class="mb-4">
+                <h5>Descripción</h5>
+                <p class="text-muted">{{ product.description|default:"Este producto no tiene descripción detallada." }}</p>
+            </div>
+            
+            <!-- Stock y Disponibilidad -->
+            <div class="mb-4">
+                {% if product.stock > 0 %}
+                    <span class="text-success fw-semibold">✔ En stock ({{ product.stock }} unidades disponibles)</span>
+                {% else %}
+                    <span class="text-danger fw-semibold">✖ Agotado</span>
+                {% endif %}
+            </div>
+
+            <!-- Botón de añadir al carrito -->
+            <form action="{% url 'cart_add' product.id %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-primary btn-sm">
+                    🛒 Añadir al carrito
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

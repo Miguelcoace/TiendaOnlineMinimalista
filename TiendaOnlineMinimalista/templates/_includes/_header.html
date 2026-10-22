@@ -1,0 +1,39 @@
+<header>
+    <div class="container">
+        <h1>TiendaOnlineMinimalista</h1>
+
+        <nav class="d-flex justify-content-between">
+            <ul class="list-unstyled d-flex flex-row gap-3 mb-0">
+                <li><a href="{% url 'home' %}" class="text-decoration-none text-reset btn btn-primary btn-sm mt-1">Inicio</a></li>
+                <li><a href="{% url 'products' %}" class="text-decoration-none text-reset btn btn-primary btn-sm mt-1">Productos</a></li>
+                <li><a href="{% url 'categories' %}" class="text-decoration-none text-reset btn btn-primary btn-sm mt-1">Categorías</a></li>
+                <li><a href="{% url 'cart_detail' %}" class="text-decoration-none text-reset btn btn-primary btn-sm mt-1">Carrito</a></li>
+                <li><a href="{% url 'order_list' %}" class="text-decoration-none text-reset btn btn-primary btn-sm mt-1">Mis pedidos</a></li>
+            </ul>
+            <ul class="navbar-nav w-50">
+                {% if user.is_authenticated %}
+                    <div class="d-flex align-items-center justify-content-end">
+                        <li class="nav-item me-4">
+                            <span class="nav-link text-dark">Hola, <strong>{{ user.username }}</strong></span>
+                        </li>
+                        <li class="nav-item">
+                            <form action="{% url 'logout' %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger btn-sm mt-1">Cerrar sesión</button>
+                            </form>
+                        </li>
+                    </div>
+                {% else %}
+                    <div class="d-flex align-items-center justify-content-end">
+                        <li class="nav-item">                       
+                            <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary btn-sm ms-2" href="{% url 'signup' %}">Registrarse</a>
+                        </li>
+                    </div>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</header>

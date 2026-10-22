@@ -1,0 +1,35 @@
+{% extends "_core/_layout.html" %} 
+
+{% block head_title %} TiendaOnlineMinimalista{% endblock %} 
+
+{% block page_content %}
+
+<div class="container">
+    <header class="text-center">
+        <h4>Bienvenido a mi tienda online</h4>
+        <p>Esta es una tienda básica de ropa textil</p>
+    </header>
+    <body>
+        <section>
+            <h2>Todas las categorías</h2>
+            <div class="row">
+            {% for category in categories %}
+                <div class="col-12 col-sm-6 col-md-4">     
+                    {% include 'catalog/_category.html' %}
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        <section>
+            <h2>Lo más nuevo</h2>
+            <div class="row">
+            {% for product in products %}
+                <div class="col-12 col-sm-6 col-md-4">     
+                    {% include 'catalog/_product.html' %}
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </body>
+</div>
+{% endblock %}

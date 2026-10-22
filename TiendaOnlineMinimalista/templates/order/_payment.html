@@ -1,0 +1,16 @@
+{% extends "_core/_layout.html" %}
+
+{% block page_content %}
+<div class="container my-5" style="max-width: 550px;">
+    <div class="card shadow-sm border-0 p-4">
+        <h2 class="mb-3 text-center">Pasarela de Pago Simulada</h2>
+        <p class="text-muted text-center mb-4">Total a pagar: <strong class="text-success fs-5">{{ order.get_total_cost }} €</strong></p>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success w-100 btn-lg mt-3">Pagar ahora</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

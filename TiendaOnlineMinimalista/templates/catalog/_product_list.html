@@ -1,0 +1,54 @@
+{% extends "_core/_layout.html" %} 
+
+{% block head_title %} Tienda online minimalista {% endblock %} 
+
+{% block page_content %}
+<div class="container my-5">
+    <h1 class="mb-4 text-center">
+      {% if category %}
+          {{ category.name }}
+      {% else %}
+          Todos los productos
+      {% endif %}
+    </h1>
+    
+    <div class="row g-4">
+        {% for product in products %}
+        <div class="col-12 col-sm-6 col-md-4">
+            <article class="card h-100 shadow-sm border-0 text-center p-3 category-card">
+                <a class="text-decoration-none text-reset d-flex flex-column h-100 justify-content-between" href="{% url 'product_detail' product.slug %}">
+                    
+                    <!-- Imagen del producto -->
+                    <div>
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="rounded mx-auto mb-3 img-fluid object-fit-cover" style="width: 150px; height: 150px;">
+                        {% else %}
+                            <div class="bg-light rounded mx-auto mb-3 d-flex align-items-center justify-content-center text-muted" style="width: 150px; height: 150px;">
+                                Sin imagen
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Información del producto -->
+                    <div class="card-body p-0">
+                        <!-- Categoría pequeña opcional -->
+                        <span class="badge bg-secondary mb-1">{{ product.category.name }}</span>
+                        <h2 class="h5 fw-bold text-dark mb-2">{{ product.name }}</h2>
+                    </div>
+
+                    <!-- Precio -->
+                    <div class="card-footer bg-transparent border-0 p-0 mt-3">
+                        <strong class="fs-4 text-success">{{ product.price }} €</strong>
+                    </div>
+
+                </a>
+            </article>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="alert alert-warning text-center">No hay productos disponibles en este momento.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

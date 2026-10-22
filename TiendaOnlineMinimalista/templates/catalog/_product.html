@@ -1,0 +1,8 @@
+<article class="m-4 text-center">
+    <h2>{{ product.category }} {{ product.name }}</h2>
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="rounded-circle mx-auto mb-2 category-img img-fluid img-responsive">
+    {% comment %} <a class="btn btn-primary btn-sm mt-1" role="button" href="{% url 'product_detail' product.slug %}">Ver producto</a> {% endcomment %}
+    <a href="{% url 'product_detail' product.slug %}" class="btn btn-primary">
+        Ver producto
+    </a>
+</article>
