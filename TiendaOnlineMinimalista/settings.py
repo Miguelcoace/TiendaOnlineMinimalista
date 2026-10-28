@@ -146,6 +146,23 @@ STORAGES = {
     },
 }
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "django.request": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+    },
+}
+
 
 LOGIN_REDIRECT_URL = 'home'  # A dónde va tras hacer login con éxito
 LOGOUT_REDIRECT_URL = (  # A dónde va tras cerrar sesión
