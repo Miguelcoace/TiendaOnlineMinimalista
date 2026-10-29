@@ -9,6 +9,11 @@
                 <li><a href="{% url 'categories' %}" class="text-decoration-none text-reset btn btn-primary btn-sm mt-1">Categorías</a></li>
                 <li><a href="{% url 'cart_detail' %}" class="text-decoration-none text-reset btn btn-primary btn-sm mt-1">Carrito</a></li>
                 <li><a href="{% url 'order_list' %}" class="text-decoration-none text-reset btn btn-primary btn-sm mt-1">Mis pedidos</a></li>
+                {% if user.is_authenticated and user.is_staff %}
+                        <li class="nav-item">
+                            <a class="text-decoration-none text-reset btn btn-primary btn-sm mt-1" href="{% url 'staff_order_list' %}">Gestionar Pedidos (Staff)</a>
+                        </li>
+                    {% endif %}
             </ul>
             <ul class="navbar-nav w-50">
                 {% if user.is_authenticated %}
@@ -32,6 +37,7 @@
                             <a class="btn btn-primary btn-sm ms-2" href="{% url 'signup' %}">Registrarse</a>
                         </li>
                     </div>
+                    
                 {% endif %}
             </ul>
         </nav>

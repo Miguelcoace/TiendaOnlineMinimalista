@@ -4,26 +4,26 @@ from django.db import models
 
 
 class Order(models.Model):
+  STATUS_CHOICES = (
+      ('pending', 'Pendiente de pago'),
+      ('processing', 'En proceso / Preparando'),
+      ('shipped', 'Enviado'),
+      ('delivered', 'Entregado'),
+      ('cancelled', 'Cancelado'),
+  )
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
   paid = models.BooleanField(default=False)  # Útil para la pasarela de pago simulada
   status = models.CharField(
-      max_length=20,
-      choices=[
-          ('pending', 'Pendiente'),
-          ('processing', 'En proceso'),
-          ('shipped', 'Enviado'),
-          ('delivered', 'Entregado'),
-      ],
-      default='pending',
+      max_length=20, choices=STATUS_CHOICES, default='pending'
   )
 
   class Meta:
     ordering = ['-created_at']
 
   def __str__(self):
-    return f'Pedido #{self.id} - {self.user.username}'
+    return f'Pedido #{self.id} - {self.user.username} - {self.status}'
 
   @property
   def get_total_cost(self):

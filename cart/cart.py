@@ -15,7 +15,7 @@ class Cart:
 
     def add(self, product, quantity=1, override_quantity=False):
       """Añade un producto al carrito usando su ID para evitar problemas."""
-      product_id = str(product.id)  # Usamos el ID como clave (¡mucho más seguro!)
+      product_id = str(product.id)  # Usamos el ID como clave
 
       if product_id not in self.cart:
         self.cart[product_id] = {
@@ -36,9 +36,9 @@ class Cart:
 
     def remove(self, product):
       """Elimina un producto del carrito."""
-      product_name = str(product.name)
-      if product_name in self.cart:
-        del self.cart[product_name]
+      product_id = str(product.id)
+      if product_id in self.cart:
+        del self.cart[product_id]
         self.save()
 
     def __iter__(self):

@@ -5,6 +5,7 @@ from .models import Order, OrderItem
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from .forms import PaymentForm
+from django.contrib.admin.views.decorators import staff_member_required
 
 class OrderListView(LoginRequiredMixin, ListView):
   model = Order
@@ -80,3 +81,20 @@ def payment_process(request):
   return render(
       request, 'order/_payment.html', {'order': order, 'form': form}
   )
+
+@staff_member_required(login_url='login')
+def staff_order_list(request):
+  # El staff puede ver todos los pedidos del sistema, ordenados del más reciente al más antiguo
+  orders = Order.objects.all().order_by('-created_at')
+  return render(request, 'order/_staff_order_list.html', {'orders': orders})
+
+@staff_member_required(login_url='login')
+def staff_order_update_status(request, order_id):
+  order = get_object_or_404(Order, id=order_id)
+
+  if request.method == 'POST':
+    new_status = request.POST.get('status')
+    if new_status in dict(Order.STATUS_CHOICES):
+      order.status = new_status
+      order.save()
+  return redirect('staff_order_list')
